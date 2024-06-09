@@ -1,0 +1,44 @@
+<!-- res/layout/activity_home.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.HomeActivity"
+    android:padding="16dp">
+
+    <Spinner
+        android:id="@+id/spinnerEspecialidades"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/select_speciality" />
+
+    <Spinner
+        android:id="@+id/spinnerMedicos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/select_doctor"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/textViewHorarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/available_times"
+        android:visibility="gone"
+        android:paddingTop="16dp" />
+
+    <Spinner
+        android:id="@+id/spinnerHorarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/buttonSolicitarAgendamento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/request_appointment"
+        android:visibility="gone"
+        android:layout_marginTop="16dp" />
+</LinearLayout>
