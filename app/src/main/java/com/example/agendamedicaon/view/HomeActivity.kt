@@ -1,7 +1,7 @@
-// HomeActivity.kt
 package com.example.agendamedicaon.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -43,6 +43,7 @@ class HomeActivity : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val especialidade = parent?.getItemAtPosition(position) as Especialidade
+                Log.d("Especialidade", especialidade.id.toString())
                 loadMedicos(especialidade.id)
             }
         }
@@ -76,15 +77,17 @@ class HomeActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Especialidade>>, response: Response<List<Especialidade>>) {
                 if (response.isSuccessful) {
                     val especialidades = response.body()
-                    val adapter = ArrayAdapter(this@HomeActivity, android.R.layout.simple_spinner_item, especialidades!!)
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    Log.d("HomeActivity", "Especialidades: ${especialidades}")
+                    val adapter = EspecialidadeAdapter(this@HomeActivity, R.layout.spinner_item, especialidades!!)
                     spinnerEspecialidades.adapter = adapter
                 } else {
+                    Log.e("HomeActivity", "Erro ao carregar especialidades: ${response.errorBody()?.string()}")
                     Toast.makeText(this@HomeActivity, "Erro ao carregar especialidades", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<List<Especialidade>>, t: Throwable) {
+                Log.e("HomeActivity", "Erro: ${t.message}", t)
                 Toast.makeText(this@HomeActivity, "Erro: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
@@ -102,11 +105,13 @@ class HomeActivity : AppCompatActivity() {
                     spinnerMedicos.adapter = adapter
                     spinnerMedicos.visibility = View.VISIBLE
                 } else {
+                    Log.e("HomeActivity", "Erro ao carregar médicos: ${response.errorBody()?.string()}")
                     Toast.makeText(this@HomeActivity, "Erro ao carregar médicos", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<List<Medico>>, t: Throwable) {
+                Log.e("HomeActivity", "Erro: ${t.message}", t)
                 Toast.makeText(this@HomeActivity, "Erro: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
@@ -125,11 +130,13 @@ class HomeActivity : AppCompatActivity() {
                     spinnerHorarios.visibility = View.VISIBLE
                     buttonSolicitarAgendamento.visibility = View.VISIBLE
                 } else {
+                    Log.e("HomeActivity", "Erro ao carregar horários: ${response.errorBody()?.string()}")
                     Toast.makeText(this@HomeActivity, "Erro ao carregar horários", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<List<Horario>>, t: Throwable) {
+                Log.e("HomeActivity", "Erro: ${t.message}", t)
                 Toast.makeText(this@HomeActivity, "Erro: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
@@ -143,11 +150,13 @@ class HomeActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Toast.makeText(this@HomeActivity, "Obrigado por fazer a solicitação, se o médico aceitar você irá receber um e-mail avisando", Toast.LENGTH_SHORT).show()
                 } else {
+                    Log.e("HomeActivity", "Erro ao solicitar agendamento: ${response.errorBody()?.string()}")
                     Toast.makeText(this@HomeActivity, "Erro ao solicitar agendamento", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("HomeActivity", "Erro: ${t.message}", t)
                 Toast.makeText(this@HomeActivity, "Erro: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })

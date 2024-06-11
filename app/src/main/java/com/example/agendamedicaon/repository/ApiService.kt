@@ -28,7 +28,7 @@ interface ApiService {
     @POST("register")
     fun registerUser(@Body registerRequest: RegisterRequest): Call<Void>
 
-    @GET("api/especialidades")
+    @GET("api/getEspecialidadesDisponiveis")
     fun getEspecialidades(): Call<List<Especialidade>>
 
     @GET("api/medicos")
