@@ -1,6 +1,8 @@
 package com.example.agendamedicaon.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -26,6 +28,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var editTextBairro: EditText
     private lateinit var editTextCidade: EditText
     private lateinit var editTextComplemento: EditText
+    private lateinit var editTextSenha: EditText
     private lateinit var buttonRegister: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +47,7 @@ class RegisterActivity : AppCompatActivity() {
         editTextBairro = findViewById(R.id.editTextBairro)
         editTextCidade = findViewById(R.id.editTextCidade)
         editTextComplemento = findViewById(R.id.editTextComplemento)
+        editTextSenha = findViewById(R.id.editTextSenha)
         buttonRegister = findViewById(R.id.buttonRegister)
 
         buttonRegister.setOnClickListener {
@@ -59,13 +63,14 @@ class RegisterActivity : AppCompatActivity() {
             val bairro = editTextBairro.text.toString().trim()
             val cidade = editTextCidade.text.toString().trim()
             val complemento = editTextComplemento.text.toString().trim()
+            val senha = editTextSenha.text.toString().trim()
 
             if (nomeCompleto.isNotEmpty() && email.isNotEmpty() && cpf.isNotEmpty() && celular.isNotEmpty() && genero.isNotEmpty() &&
                 dataNascimento.isNotEmpty() && cep.isNotEmpty() && rua.isNotEmpty() && numero.isNotEmpty() && bairro.isNotEmpty() &&
-                cidade.isNotEmpty()
+                cidade.isNotEmpty() && senha.isNotEmpty()
             ) {
                 registerUser(
-                    nomeCompleto, email, cpf, celular, genero, dataNascimento, cep, rua, numero, bairro, cidade, complemento
+                    nomeCompleto, email, cpf, celular, genero, dataNascimento, cep, rua, numero, bairro, cidade, complemento, senha
                 )
             } else {
                 Toast.makeText(this, "Por favor, preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show()
@@ -76,24 +81,34 @@ class RegisterActivity : AppCompatActivity() {
     private fun registerUser(
         nomeCompleto: String, email: String, cpf: String, celular: String, genero: String,
         dataNascimento: String, cep: String, rua: String, numero: String, bairro: String,
-        cidade: String, complemento: String?
+        cidade: String, complemento: String?, senha: String
     ) {
         val registerRequest = RegisterRequest(
-            nomeCompleto, email, cpf, celular, genero, dataNascimento, cep, rua, numero, bairro, cidade, complemento
+            nomeCompleto, email, cpf, celular, genero, dataNascimento, cep, rua, numero, bairro, cidade, complemento, senha
         )
+
+        Log.d("RegisterActivity", "RegisterRequest: $registerRequest")
+
         val call = RetrofitClient.apiService.registerUser(registerRequest)
 
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                Log.d("RegisterActivity", "Response: $response")
                 if (response.isSuccessful) {
+                    Log.d("RegisterActivity", "Registration successful")
                     Toast.makeText(this@RegisterActivity, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show()
-                    // TODO: Navegar para a próxima tela ou realizar login automático
+                    // Navegar para a tela de login
+                    val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 } else {
+                    Log.e("RegisterActivity", "Falha no cadastro: ${response.errorBody()?.string()}")
                     Toast.makeText(this@RegisterActivity, "Falha no cadastro", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("RegisterActivity", "Erro: ${t.message}")
                 Toast.makeText(this@RegisterActivity, "Erro: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })

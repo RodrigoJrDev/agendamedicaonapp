@@ -1,4 +1,5 @@
 package com.example.agendamedicaon.repository
+import com.example.agendamedicaon.model.AgendamentoRequest
 import com.example.agendamedicaon.model.User
 import com.example.agendamedicaon.model.LoginRequest
 import com.example.agendamedicaon.model.AppointmentRequest
@@ -17,16 +18,13 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @POST("api/register")
-    fun registerUser(@Body user: User): Call<Void>
-
     @POST("api/login")
     fun loginUser(@Body loginRequest: LoginRequest): Call<LoginResponse>
 
     @POST("api/requestAppointment")
     fun requestAppointment(@Body appointmentRequest: AppointmentRequest): Call<Void>
 
-    @POST("register")
+    @POST("api/register")
     fun registerUser(@Body registerRequest: RegisterRequest): Call<Void>
 
     @GET("api/getEspecialidadesDisponiveis")
@@ -39,7 +37,7 @@ interface ApiService {
     fun getHorariosDisponiveis(@Query("medicoId") medicoId: Int): Call<List<Horario>>
 
     @POST("api/solicitar_agendamento")
-    fun solicitarAgendamento(@Query("medicoId") medicoId: Int, @Query("horarioId") horarioId: Int): Call<Void>
+    fun solicitarAgendamento(@Body request: AgendamentoRequest): Call<Void>
 
     @GET("api/consultas_agendadas")
     fun getConsultasAgendadas(): Call<List<Consulta>>

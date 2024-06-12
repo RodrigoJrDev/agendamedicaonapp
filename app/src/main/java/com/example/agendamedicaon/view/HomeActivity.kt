@@ -10,9 +10,11 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.agendamedicaon.R
+import com.example.agendamedicaon.model.AgendamentoRequest
 import com.example.agendamedicaon.model.Especialidade
 import com.example.agendamedicaon.model.Medico
 import com.example.agendamedicaon.model.Horario
+import com.example.agendamedicaon.model.Paciente
 import com.example.agendamedicaon.repository.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -157,7 +159,15 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun solicitarAgendamento(medicoId: Int, horarioId: Int) {
-        val call = RetrofitClient.apiService.solicitarAgendamento(medicoId, horarioId)
+        val paciente = intent.getParcelableExtra<Paciente>("paciente")
+        if (paciente == null) {
+            Toast.makeText(this, "Erro: Dados do paciente não encontrados.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val request = AgendamentoRequest(medicoId, horarioId, paciente.id)
+
+        val call = RetrofitClient.apiService.solicitarAgendamento(request)
 
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
@@ -175,4 +185,5 @@ class HomeActivity : AppCompatActivity() {
             }
         })
     }
+
 }
