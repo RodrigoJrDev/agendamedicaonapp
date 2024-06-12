@@ -70,6 +70,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+
     private fun loadEspecialidades() {
         val call = RetrofitClient.apiService.getEspecialidades()
 
@@ -77,9 +78,13 @@ class HomeActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Especialidade>>, response: Response<List<Especialidade>>) {
                 if (response.isSuccessful) {
                     val especialidades = response.body()
-                    Log.d("HomeActivity", "Especialidades: ${especialidades}")
-                    val adapter = EspecialidadeAdapter(this@HomeActivity, R.layout.spinner_item, especialidades!!)
-                    spinnerEspecialidades.adapter = adapter
+                    if (!especialidades.isNullOrEmpty()) {
+                        val adapter = EspecialidadeAdapter(this@HomeActivity, R.layout.spinner_item, especialidades)
+                        spinnerEspecialidades.adapter = adapter
+                    } else {
+                        Log.e("HomeActivity", "Nenhuma especialidade disponível")
+                        Toast.makeText(this@HomeActivity, "Nenhuma especialidade disponível", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     Log.e("HomeActivity", "Erro ao carregar especialidades: ${response.errorBody()?.string()}")
                     Toast.makeText(this@HomeActivity, "Erro ao carregar especialidades", Toast.LENGTH_SHORT).show()
@@ -100,10 +105,14 @@ class HomeActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Medico>>, response: Response<List<Medico>>) {
                 if (response.isSuccessful) {
                     val medicos = response.body()
-                    val adapter = ArrayAdapter(this@HomeActivity, android.R.layout.simple_spinner_item, medicos!!)
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    spinnerMedicos.adapter = adapter
-                    spinnerMedicos.visibility = View.VISIBLE
+                    if (!medicos.isNullOrEmpty()) {
+                        val adapter = MedicoAdapter(this@HomeActivity, R.layout.spinner_medico_item, medicos)
+                        spinnerMedicos.adapter = adapter
+                        spinnerMedicos.visibility = View.VISIBLE
+                    } else {
+                        Log.e("HomeActivity", "Nenhum médico disponível")
+                        Toast.makeText(this@HomeActivity, "Nenhum médico disponível", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     Log.e("HomeActivity", "Erro ao carregar médicos: ${response.errorBody()?.string()}")
                     Toast.makeText(this@HomeActivity, "Erro ao carregar médicos", Toast.LENGTH_SHORT).show()
@@ -124,11 +133,15 @@ class HomeActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Horario>>, response: Response<List<Horario>>) {
                 if (response.isSuccessful) {
                     val horarios = response.body()
-                    val adapter = ArrayAdapter(this@HomeActivity, android.R.layout.simple_spinner_item, horarios!!)
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    spinnerHorarios.adapter = adapter
-                    spinnerHorarios.visibility = View.VISIBLE
-                    buttonSolicitarAgendamento.visibility = View.VISIBLE
+                    if (!horarios.isNullOrEmpty()) {
+                        val adapter = HorarioAdapter(this@HomeActivity, R.layout.spinner_horario_item, horarios)
+                        spinnerHorarios.adapter = adapter
+                        spinnerHorarios.visibility = View.VISIBLE
+                        buttonSolicitarAgendamento.visibility = View.VISIBLE
+                    } else {
+                        Log.e("HomeActivity", "Nenhum horário disponível")
+                        Toast.makeText(this@HomeActivity, "Nenhum horário disponível", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     Log.e("HomeActivity", "Erro ao carregar horários: ${response.errorBody()?.string()}")
                     Toast.makeText(this@HomeActivity, "Erro ao carregar horários", Toast.LENGTH_SHORT).show()
@@ -141,6 +154,7 @@ class HomeActivity : AppCompatActivity() {
             }
         })
     }
+
 
     private fun solicitarAgendamento(medicoId: Int, horarioId: Int) {
         val call = RetrofitClient.apiService.solicitarAgendamento(medicoId, horarioId)

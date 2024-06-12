@@ -1,20 +1,45 @@
 package com.example.agendamedicaon.model
 
-import com.google.gson.annotations.SerializedName
+import android.os.Parcel
+import android.os.Parcelable
 
 data class Paciente(
-    @SerializedName("id") val id: Int,
-    @SerializedName("nome_completo") val nomeCompleto: String,
-    @SerializedName("email") val email: String,
-    @SerializedName("cpf") val cpf: String,
-    @SerializedName("celular") val celular: String,
-    @SerializedName("genero") val genero: String,
-    @SerializedName("data_nascimento") val dataNascimento: String,
-    @SerializedName("cep") val cep: String,
-    @SerializedName("rua") val rua: String,
-    @SerializedName("numero") val numero: String,
-    @SerializedName("bairro") val bairro: String,
-    @SerializedName("cidade") val cidade: String,
-    @SerializedName("complemento") val complemento: String?,
-    @SerializedName("imagem_usuario") val imagemUsuario: String?
-)
+    val id: Int,
+    val nome: String,
+    val email: String,
+    val genero: String,
+    val data_nascimento: String,
+    val imagem_usuario: String
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: ""
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeString(nome)
+        parcel.writeString(email)
+        parcel.writeString(genero)
+        parcel.writeString(data_nascimento)
+        parcel.writeString(imagem_usuario)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Paciente> {
+        override fun createFromParcel(parcel: Parcel): Paciente {
+            return Paciente(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Paciente?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

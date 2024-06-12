@@ -8,6 +8,7 @@ import com.example.agendamedicaon.model.RegisterRequest
 import com.example.agendamedicaon.model.Especialidade
 import com.example.agendamedicaon.model.Medico
 import com.example.agendamedicaon.model.Horario
+import com.example.agendamedicaon.model.LoginResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -20,7 +21,7 @@ interface ApiService {
     fun registerUser(@Body user: User): Call<Void>
 
     @POST("api/login")
-    fun loginUser(@Body loginRequest: LoginRequest): Call<Paciente>
+    fun loginUser(@Body loginRequest: LoginRequest): Call<LoginResponse>
 
     @POST("api/requestAppointment")
     fun requestAppointment(@Body appointmentRequest: AppointmentRequest): Call<Void>
