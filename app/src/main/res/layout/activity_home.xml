@@ -57,5 +57,13 @@
             android:backgroundTint="#1977cc"
             android:textColor="#FFFFFF"
             style="@style/RalewayText"/>
+
+        <Button
+            android:id="@+id/buttonVerConsultas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ver Consultas Agendadas"
+            android:layout_marginTop="16dp" />
+
     </LinearLayout>
 </ScrollView>
