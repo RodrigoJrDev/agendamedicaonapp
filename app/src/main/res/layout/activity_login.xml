@@ -5,7 +5,27 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".view.LoginActivity">
+    tools:context=".view.LoginActivity"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bem-vindo ao Agenda Médica ON"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"
+        style="@style/RalewayText"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Faça login para marcar sua consulta"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"
+        style="@style/RalewayText"/>
 
     <EditText
         android:id="@+id/editTextEmail"
@@ -14,7 +34,8 @@
         android:hint="E-mail"
         android:inputType="textEmailAddress"
         android:padding="16dp"
-        android:layout_margin="16dp" />
+        android:layout_marginBottom="16dp"
+        style="@style/RalewayText"/>
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -23,7 +44,8 @@
         android:hint="Senha"
         android:inputType="textPassword"
         android:padding="16dp"
-        android:layout_margin="16dp" />
+        android:layout_marginBottom="16dp"
+        style="@style/RalewayText"/>
 
     <Button
         android:id="@+id/buttonLogin"
@@ -31,5 +53,28 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:padding="16dp"
-        android:layout_margin="16dp" />
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#1977cc"
+        android:textColor="#FFFFFF"
+        style="@style/RalewayText"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Não tem uma conta?"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"
+        style="@style/RalewayText"/>
+
+    <Button
+        android:id="@+id/buttonSignUp"
+        style="@style/RalewayText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#eee"
+        android:padding="16dp"
+        android:text="Cadastre-se"
+        android:textColor="#000" />
 </LinearLayout>

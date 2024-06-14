@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.agendamedicaon.R
 import com.example.agendamedicaon.model.Horario
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class HorarioAdapter(
     context: Context,
@@ -29,7 +31,15 @@ class HorarioAdapter(
         val view = convertView ?: inflater.inflate(resource, parent, false)
         val textView = view.findViewById<TextView>(R.id.textViewHorarioItem)
         val horario = horarios[position]
-        textView.text = "${horario.data_disponivel} - ${horario.hora_inicio} às ${horario.hora_fim}"
+        val dataFormatada = formatarDataParaBrasil(horario.data_disponivel)
+        textView.text = "$dataFormatada - ${horario.hora_inicio} às ${horario.hora_fim}"
         return view
+    }
+
+    private fun formatarDataParaBrasil(data: String): String {
+        val formatoOrigem = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val formatoDestino = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val dataFormatada = formatoOrigem.parse(data)
+        return formatoDestino.format(dataFormatada)
     }
 }

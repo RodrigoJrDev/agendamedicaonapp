@@ -1,44 +1,61 @@
-<!-- res/layout/activity_home.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".view.HomeActivity"
     android:padding="16dp">
 
-    <Spinner
-        android:id="@+id/spinnerEspecialidades"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:prompt="@string/select_speciality" />
+        android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/spinnerMedicos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:prompt="@string/select_doctor"
-        android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/textViewHorarios"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/available_times"
-        android:visibility="gone"
-        android:paddingTop="16dp" />
+        <Spinner
+            android:id="@+id/spinnerEspecialidades"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/select_speciality" />
 
-    <Spinner
-        android:id="@+id/spinnerHorarios"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selecione o Médico"
+            style="@style/RalewayText"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"/>
 
-    <Button
-        android:id="@+id/buttonSolicitarAgendamento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/request_appointment"
-        android:visibility="gone"
-        android:layout_marginTop="16dp" />
-</LinearLayout>
+        <Spinner
+            android:id="@+id/spinnerMedicos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/select_doctor"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewHorarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/available_times"
+            android:visibility="gone"
+            android:paddingTop="16dp"
+            style="@style/RalewayText"/>
+
+        <Spinner
+            android:id="@+id/spinnerHorarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/buttonSolicitarAgendamento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/request_appointment"
+            android:visibility="gone"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#1977cc"
+            android:textColor="#FFFFFF"
+            style="@style/RalewayText"/>
+    </LinearLayout>
+</ScrollView>
