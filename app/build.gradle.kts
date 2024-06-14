@@ -54,4 +54,7 @@ dependencies {
     // OkHttp Logging Interceptor
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("com.google.code.gson:gson:2.8.8")
+
 }

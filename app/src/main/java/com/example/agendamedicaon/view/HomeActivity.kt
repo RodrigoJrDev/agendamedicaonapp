@@ -1,5 +1,6 @@
 package com.example.agendamedicaon.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -28,10 +29,13 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var buttonSolicitarAgendamento: Button
     private lateinit var selectedMedico: Medico
     private lateinit var selectedHorario: Horario
+    private var paciente: Paciente? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        paciente = intent.getParcelableExtra("paciente")
 
         spinnerEspecialidades = findViewById(R.id.spinnerEspecialidades)
         spinnerMedicos = findViewById(R.id.spinnerMedicos)
@@ -173,6 +177,11 @@ class HomeActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     Toast.makeText(this@HomeActivity, "Obrigado por fazer a solicitação, se o médico aceitar você irá receber um e-mail avisando", Toast.LENGTH_SHORT).show()
+                    // Navegar para a Consultas Agendadas
+                    val intent = Intent(this@HomeActivity, ConsultasAgendadasActivity::class.java)
+                    intent.putExtra("idPaciente", paciente.id)
+                    startActivity(intent)
+                    finish()
                 } else {
                     Log.e("HomeActivity", "Erro ao solicitar agendamento: ${response.errorBody()?.string()}")
                     Toast.makeText(this@HomeActivity, "Erro ao solicitar agendamento", Toast.LENGTH_SHORT).show()
@@ -185,5 +194,4 @@ class HomeActivity : AppCompatActivity() {
             }
         })
     }
-
 }

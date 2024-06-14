@@ -10,6 +10,7 @@ import com.example.agendamedicaon.model.Especialidade
 import com.example.agendamedicaon.model.Medico
 import com.example.agendamedicaon.model.Horario
 import com.example.agendamedicaon.model.LoginResponse
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -40,5 +41,5 @@ interface ApiService {
     fun solicitarAgendamento(@Body request: AgendamentoRequest): Call<Void>
 
     @GET("api/consultas_agendadas")
-    fun getConsultasAgendadas(): Call<List<Consulta>>
+    fun getConsultasAgendadas(@Query("id_paciente") idPaciente: Int): Call<ResponseBody>
 }

@@ -6,30 +6,35 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textViewData"
+        android:id="@+id/dataConsultaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Data da Consulta"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
 
     <TextView
-        android:id="@+id/textViewStatus"
+        android:id="@+id/statusTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Status"
-        android:textSize="14sp" />
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
 
     <TextView
-        android:id="@+id/textViewNomeMedico"
+        android:id="@+id/nomeMedicoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nome do Médico"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
 
     <TextView
-        android:id="@+id/textViewNomeEspecialidade"
+        android:id="@+id/nomeEspecialidadeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nome da Especialidade"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@android:color/black" />
+
 </LinearLayout>

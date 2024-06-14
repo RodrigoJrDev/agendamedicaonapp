@@ -1,6 +1,6 @@
-// ConsultasAdapter.kt
 package com.example.agendamedicaon.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,33 +9,35 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.agendamedicaon.R
 import com.example.agendamedicaon.model.Consulta
 
-class ConsultasAdapter(private val consultasList: List<Consulta>) :
-    RecyclerView.Adapter<ConsultasAdapter.ConsultaViewHolder>() {
+class ConsultasAdapter(private val consultasList: List<Consulta>) : RecyclerView.Adapter<ConsultasAdapter.ConsultasViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConsultaViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_consulta, parent, false)
-        return ConsultaViewHolder(itemView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConsultasViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_consulta, parent, false)
+        return ConsultasViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ConsultaViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ConsultasViewHolder, position: Int) {
         val consulta = consultasList[position]
         holder.bind(consulta)
     }
 
-    override fun getItemCount(): Int = consultasList.size
+    override fun getItemCount(): Int {
+        return consultasList.size
+    }
 
-    class ConsultaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val textViewData: TextView = itemView.findViewById(R.id.textViewData)
-        private val textViewHora: TextView = itemView.findViewById(R.id.textViewHora)
-        private val textViewMedico: TextView = itemView.findViewById(R.id.textViewMedico)
-        private val textViewEspecialidade: TextView = itemView.findViewById(R.id.textViewEspecialidade)
+    class ConsultasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val dataConsultaTextView: TextView = itemView.findViewById(R.id.textViewData)
+        private val statusTextView: TextView = itemView.findViewById(R.id.textViewStatus)
+        private val nomeMedicoTextView: TextView = itemView.findViewById(R.id.textViewNomeMedico)
+        private val nomeEspecialidadeTextView: TextView = itemView.findViewById(R.id.textViewNomeEspecialidade)
 
         fun bind(consulta: Consulta) {
-            textViewData.text = consulta.data
-            textViewHora.text = consulta.hora
-            textViewMedico.text = consulta.medico
-            textViewEspecialidade.text = consulta.especialidade
+            Log.d("ConsultasAdapter", "Bind dataConsulta: ${consulta.dataConsulta}, status: ${consulta.status}, nomeMedico: ${consulta.nomeMedico}, nomeEspecialidade: ${consulta.nomeEspecialidade}")
+
+            dataConsultaTextView.text = consulta.dataConsulta
+            statusTextView.text = consulta.status
+            nomeMedicoTextView.text = consulta.nomeMedico
+            nomeEspecialidadeTextView.text = consulta.nomeEspecialidade
         }
     }
 }
